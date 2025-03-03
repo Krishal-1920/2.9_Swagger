@@ -1,0 +1,101 @@
+*****************************************************************************************************************************************************************
+*) Kafka
+- Open Source distributed event streaming platform 
+
+- Kafka is designed to handle data that is constantly being generated and needs to be processed as it comes in, without delays
+
+*) What are it's use 
+
+=> Real-time Data Processing: Handles data streams in real-time (e.g., logs, user activities, stock prices).
+=> Scalability: Can handle millions of messages per second across multiple servers.
+=> Decoupling Services: Allows different systems (like microservices) to communicate without direct dependencies.
+=> Fault Tolerance: Stores data in a distributed and replicated way to prevent data loss.
+*****************************************************************************************************************************************************************
+*) Kafka Cluster
+
+A Kafka Cluster is a group of Kafka brokers (servers) working together to handle large-scale, real-time data streams. It ensures high availability, fault tolerance, and scalability.
+
+Key Components of a Kafka Cluster
+
+=> Brokers → Servers that store and manage messages. A cluster has multiple brokers.
+=> Topics & Partitions → Data is split into topics and further into partitions for parallel processing.
+=> Producers → Send messages to the cluster.
+=> Consumers → Read messages from the cluster.
+=> Zookeeper → Manages brokers, leader election, and metadata.
+
+
+Kafka Producer --> Kafka Cluster --> Kafka Consumer
+
+- Zookeeper monitors the health of of Kafka Cluster
+
+-> kafka connect is connected to kafka cluster (which is use to bring something from external source)
+
+-> Kafka stream is also connected to kafka cluster (which is used for tranmission of data inside or outside of the kafka cluster).
+*****************************************************************************************************************************************************************
+=> What is a Kafka Topic?
+
+-> A topic is like a category or folder where messages are stored.
+	Example:
+	Imagine a WhatsApp group where people send messages. The group name is the topic, and all messages sent in the group belong to that topic.
+
+=> What is a Kafka Partition?
+
+-> A partition is like a separate notebook inside a topic.
+	Kafka splits a topic into multiple partitions to make it faster and more scalable.
+	Messages inside a partition are ordered, but across partitions, they are not.
+	when we send data , Data passed inside the partition in the Round Robin fashion.
+
+- Also there is partitioner which is responsible for watching the data if data has Key then it will send accordingly and thus it can be possible that in a single partition the data get into sequence instead of RoundRobin.
+- If Data has key then it will go in the partition otherwise it will go in a round robin fashion.
+- For ordering make sure the data should go with key
+
+	Example:
+	Imagine a bookstore where a best-selling book is split into multiple sections (partitions) to be printed at the same time by different printers. This speeds up 	the process.
+
+=> What is a Kafka Offset?
+
+-> An offset is like a page number in a notebook (partition).
+	Each message in a partition gets a unique number (offset) so Kafka knows where it is stored.
+	Consumers use offsets to remember where they last read.
+	Example:
+	If you're reading a book (partition), you use a bookmark (offset) to remember the last page you read.
+
+*****************************************************************************************************************************************************************
+*) ### Kafka Consumer Offsets & Group Coordination (Simplified)  
+
+In Kafka, consumers read messages from topics and use offsets (bookmarks) to remember where they left off.  
+
+### Consumer Offsets  
+- Each consumer tracks its offset for every partition it reads.  
+- Kafka stores offsets automatically, but consumers can also save them manually.  
+- If a consumer restarts, it resumes from the last saved offset instead of starting over.  
+
+### How Consumers Join & Get Partitions  
+1. A consumer joins a group and requests partitions.  
+2. The Group Coordinator assigns partitions based on available consumers.  
+3. The consumer starts reading messages from its assigned partitions.  
+4. Consumers try to keep the same partitions (sticky assignment) to continue smoothly after a rebalance.  
+
+### Segments & Commit Log  
+- Segment: Kafka stores messages in segments, which are chunks of data inside partitions.  
+- Commit Log: Kafka logs all messages in order, like a history of everything published. Offsets help consumers read from the right place in this log.  
+
+Kafka’s system ensures efficient, reliable, and scalable message processing .
+*****************************************************************************************************************************************************************
+
+**) JWT
+
+ 	Json Web Token
+- JWT is a way to securely transmit information between parties as a JSON object.
+- JWT is a compact, URL safe Token that can carry information between parties.
+- JWT is a String consisting of three parts separated by dots.
+	Header.payload.Signature
+
+Header – Contains metadata about the token, like the type (JWT) and the algorithm used for signing (e.g., HS256).
+Payload – Holds the actual data (claims), like user ID, roles, and expiration time.
+Signature – A secure code created using the header, payload, and a secret key. It ensures the token is not altered.
+*****************************************************************************************************************************************************************
+
+**)  Swagger
+
+Swagger in Spring Boot is a tool that helps you document and test your REST APIs. It provides an interactive UI where you can see all API endpoints, their request/response details, and even test them without using tools like Postman. It makes API development and integration easier.
